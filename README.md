@@ -1,4 +1,4 @@
-# the-architect
+# The Architect
 
 Meet the Architect: a planning-and-oversight skill for AI coding agents.
 Instead of jumping straight into code, the Architect investigates first,
