@@ -1,23 +1,35 @@
 # the-architect
 
-The Architect planning-and-oversight skill for AI coding agents: plan honestly, delegate precisely, verify coldly. Investigates with live evidence, decomposes work into parallel-safe milestones, tracks progress across sessions, and finds issues before they compound.
+Meet the Architect: a planning-and-oversight skill for AI coding agents.
+Instead of jumping straight into code, the Architect investigates first,
+makes a plan you approve, breaks the work into small independent milestones,
+watches other agents implement them, and verifies every landing before
+calling anything done.
 
-Documentation
-- The full skill is `SKILL.md` (bootstrap stub — see Installation).
-- The installed skill lives in `dream-orchestrator` and covers laws, investigation, P0 planning, prompt anatomy, dispatcher verification, and close.
+In short: you describe what you want, the Architect figures out how to get
+there safely, and nothing lands without proof.
 
-Installation
-```powershell
-# Option 1: copy the architect/ folder into your environment's skills folder,
-# e.g. <env>/.agents/skills/architect/ (keeping SKILL.md + INSTALL.ps1 together)
-# Option 2: clone this repo and copy from the checkout
-git clone https://github.com/bloomstick/the-architect.git
-```
+## What lives here
 
-Requirements: an agent host with skill support, Windows PowerShell 5.1 for `INSTALL.ps1`, `git`, and network access to `github.com/bloomstick/dream-orchestrator` on first run.
+- `architect/SKILL.md` — the trigger. Greet any capable agent with
+  "Hello, Architect" and this file takes over the session.
+- `architect/INSTALL.ps1` — the setup helper. On first greeting it fetches
+  the full skill and workflow from its home repository, so this little
+  package stays small while the real machinery lives where it is maintained.
+- This README — the human introduction you are reading now.
 
-Usage
-Start a session, greet, and follow the skill — the stub installs the real one on first contact:
+## Getting started
+
+You need three things: an agent environment that supports skills (OpenCode
+works), Windows PowerShell 5.1 (only for the one-time setup script), and
+`git` with internet access for the first run.
+
+**Step 1.** Give the skill to your agent. Copy the whole `architect/`
+folder into your environment's skills directory — for example,
+`<env>/.agents/skills/architect/` — so that `SKILL.md` and `INSTALL.ps1`
+stay side by side.
+
+**Step 2.** Start a session and say hello:
 
 ```text
 You: Hello, Architect. I need episode lists that never lie about licensing.
@@ -28,22 +40,50 @@ Confirm? (stops here — nothing executes in the greeting turn)
 
 You: Confirmed. Go investigate.
 
-Agent: [reads code, probes live APIs, cites file:line evidence]
-Plan: 3 milestones (disjoint touch sets) with gates... approve?
+Agent: [reads the code, probes the live APIs, cites file and line evidence]
+Plan: 3 milestones (independent work areas) with checks for each... approve?
 ```
 
-On approval the Architect fires six-section prompts (base pinned, scope, forbiddens, acceptance with named suites, landing procedure), tracks the board across sessions, verifies each landing read-only, and closes with silence proofs. Full behavior in `SKILL.md` (post-install).
+**Step 3.** Approve the plan, and the Architect takes it from there: each
+milestone becomes a precise work order for an implementer agent (exact
+starting point, what may change, what must never change, how to prove it
+works). The Architect tracks every workstream on a visible board, verifies
+each landing against the repository itself, and closes the loop only when
+everything is proven — with a report that always says what *wasn't* verified,
+so surprises have nowhere to hide.
 
-How it works
-1. `INSTALL.ps1` provisions the Orchestrator export beside the skill (idempotent; records revision; no `.git`, just working files).
-2. The installed skill takes over: laws (evidence first, ask on ambiguity, caveats always), P0 baseline, milestone decomposition with disjoint touch sets and sequential landing, dispatcher verification tiers.
-3. Implementers work in fresh worktrees + branches, verify (`analyze` + named suites), commit, land staged; pushing `main` stays the human's manual step.
+## How it works behind the scenes
 
-Versioning
-This repo follows the orchestrator it installs: re-run `INSTALL.ps1 -Force` to re-export at the latest revision. Installed copies record their source revision; never edit an installed copy — change the source and reinstall.
+- **Investigate before proposing.** No plan from memory — the Architect reads
+  code, runs small probes against live behavior, and labels anything unproven
+  as a hypothesis, never a fact.
+- **Small milestones, safe landings.** Work is split so independent pieces can
+  run in parallel, but landings happen strictly one at a time through a merge
+  queue. Pushing to `main` always stays a human manual step.
+- **Honesty over optimism.** The Architect is instructed to disagree with you
+  when the evidence does, to ask whenever a decision has two readings, and to
+  surface hard truths instead of comfortable agreement.
+- **Nothing runs past shipping.** When a task is done — merged, verified,
+  reported — every worker stops. There are no background services, no
+  schedulers, nothing that could act while you aren't watching.
 
-Contributing
-Please share bug reports and feature requests through GitHub issues.
+## The full skill
 
-License
-To be decided.
+This repository is only the doorway. The complete skill — laws,
+investigation method, planning, prompt shapes, progress tracking, close
+procedure — is maintained in
+[dream-orchestrator](https://github.com/bloomstick/dream-orchestrator),
+which `INSTALL.ps1` fetches automatically on first greeting. You never need
+to update this package by hand; re-running the installer picks up the latest
+revision.
+
+## Contributing
+
+Found a rough edge or a missing explanation? Please share bug reports and
+feature requests through GitHub issues — they are the project's to-do list
+and its memory.
+
+## License
+
+MIT — see [LICENSE](LICENSE). You are free to use, copy, modify, and share
+this skill, including commercially.
