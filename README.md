@@ -1,4 +1,4 @@
-# the-architect
+# The Architect
 
 The Architect planning-and-oversight skill for AI coding agents: plan honestly, delegate precisely, verify coldly. Investigates with live evidence, decomposes work into parallel-safe milestones, tracks progress across sessions, and finds issues before they compound.
 
