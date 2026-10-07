@@ -8,8 +8,8 @@ Documentation
 
 Installation
 ```powershell
-# Option 1: copy these two files into your environment's skills folder,
-# e.g. <env>/.agents/skills/architect/SKILL.md + INSTALL.ps1
+# Option 1: copy the architect/ folder into your environment's skills folder,
+# e.g. <env>/.agents/skills/architect/ (keeping SKILL.md + INSTALL.ps1 together)
 # Option 2: clone this repo and copy from the checkout
 git clone https://github.com/bloomstick/the-architect.git
 ```
